@@ -33,6 +33,10 @@ jobs:
       run: |
         make test
     
+    - name: Start the server
+      run: |
+        python src/main.py & sleep 10
+
     - name: Load Test
       run: |
         make load-test
