@@ -1,4 +1,4 @@
-name: Continuous Integration
+name: CI/CD Workflow
 
 on: [push]
 
@@ -11,22 +11,39 @@ jobs:
     
     steps:
     - uses: actions/checkout@v2
+    
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
+    
     - name: Install dependencies
       run: |
         make install
+    
     - name: Lint
       run: |
         make lint
+    
     - name: Format
       run: |
         make format
+    
     - name: Test
       run: |
         make test
+    
     - name: Load Test
       run: |
         make load-test
+    
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: <sua-região-aws>
+
+    - name: Start AWS CodeBuild
+      run: |
+        aws codebuild start-build --project-name practical-mlops-ch1-exercises
