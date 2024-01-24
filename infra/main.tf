@@ -37,18 +37,23 @@ resource "aws_iam_role_policy" "codebuild_policy" {
       },
       {
         Action = [
-          "s3:GetObject",
-          "s3:GetObjectVersion",
-          "s3:PutObject"
+          "ecr:GetDownloadUrlForLayer",
+          "ecr:BatchGetImage",
+          "ecr:BatchCheckLayerAvailability",
+          "ecr:PutImage",
+          "ecr:InitiateLayerUpload",
+          "ecr:UploadLayerPart",
+          "ecr:CompleteLayerUpload"
         ],
         Resource = "*",
         Effect = "Allow"
       },
       {
         Action = [
-          "ecr:*",
+          "secretsmanager:GetSecretValue",
+          "secretsmanager:DescribeSecret"
         ],
-        Resource = "*",
+        Resource = "arn:aws:secretsmanager:us-east-1:413467296690:secret:dockerHubCredentials-sKMVye",
         Effect = "Allow"
       }
     ]
