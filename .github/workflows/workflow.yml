@@ -11,12 +11,30 @@ on:
 
 jobs:
 
+  infra:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+
+    - name: Terraform Init
+      run: terraform init
+      working-directory: ./infra
+
+    - name: Terraform Apply
+      run: terraform apply -auto-approve
+      working-directory: ./infra
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_DEFAULT_REGION: us-east-1
+
   build:
     runs-on: ubuntu-latest
     if: ${{ github.event.inputs.destroy == 'false' }}
     strategy:
       matrix:
-        python-version: ['3.8']
+        python-version: ['3.8', '3.9', '3.10']
     
     steps:
     - uses: actions/checkout@v2
@@ -57,22 +75,7 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
         aws-region: us-east-1    
-
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
-
-    - name: Terraform Init
-      run: terraform init
-      working-directory: ./infra
-
-    - name: Terraform Apply
-      run: terraform apply -auto-approve
-      working-directory: ./infra
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        AWS_DEFAULT_REGION: us-east-1
-
+  
     - name: Start AWS CodeBuild
       run: |
         aws codebuild start-build --project-name practical-mlops-ch1-exercises
