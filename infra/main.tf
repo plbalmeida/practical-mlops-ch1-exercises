@@ -37,6 +37,7 @@ resource "aws_iam_role_policy" "codebuild_policy" {
       },
       {
         Action = [
+          "ecr:GetAuthorizationToken",
           "ecr:GetDownloadUrlForLayer",
           "ecr:BatchGetImage",
           "ecr:BatchCheckLayerAvailability",
