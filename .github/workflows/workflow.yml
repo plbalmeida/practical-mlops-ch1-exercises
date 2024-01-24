@@ -10,6 +10,7 @@ jobs:
 
   Build:
     runs-on: ubuntu-latest
+    if: github.ref != 'refs/heads/destroy-infra'
     steps:
     - uses: actions/checkout@v2
     
@@ -25,6 +26,7 @@ jobs:
   Test:
     needs: Build
     runs-on: ubuntu-latest
+    if: github.ref != 'refs/heads/destroy-infra'
     strategy:
       matrix:
         python-version: ['3.8', '3.9', '3.10']
@@ -97,6 +99,7 @@ jobs:
   CodeBuild:
     needs: Infra
     runs-on: ubuntu-latest
+    if: github.ref != 'refs/heads/destroy-infra'
     steps:
     - uses: actions/checkout@v2
 
