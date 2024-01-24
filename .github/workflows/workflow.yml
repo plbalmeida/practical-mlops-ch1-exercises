@@ -58,6 +58,7 @@ jobs:
         make load-test
   
   Infra:
+    needs: Test
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -86,7 +87,7 @@ jobs:
         AWS_DEFAULT_REGION: us-east-1
 
   CodeBuild:
-    needs: Build
+    needs: Infra
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
