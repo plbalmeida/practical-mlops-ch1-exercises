@@ -64,7 +64,7 @@ resource "aws_iam_role_policy" "codebuild_policy" {
 resource "aws_codebuild_project" "practical_mlops_ch1_exercises" {
   name          = "practical-mlops-ch1-exercises"
   description   = "CodeBuild project for practical-mlops-ch1-exercises"
-  build_timeout = "5"
+  build_timeout = "30"
 
   artifacts {
     type = "NO_ARTIFACTS"
