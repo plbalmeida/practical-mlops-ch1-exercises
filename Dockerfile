@@ -1,4 +1,5 @@
-FROM python:3.8
+# imagem from ECR repository (https://gallery.ecr.aws/docker/library/python) 
+FROM public.ecr.aws/docker/library/python:slim-bullseye
 
 WORKDIR /app
 

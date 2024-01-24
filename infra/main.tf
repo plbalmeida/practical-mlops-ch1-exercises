@@ -49,14 +49,6 @@ resource "aws_iam_role_policy" "codebuild_policy" {
         Resource = "*",
         Effect = "Allow"
       },
-      {
-        Action = [
-          "secretsmanager:GetSecretValue",
-          "secretsmanager:DescribeSecret"
-        ],
-        Resource = "arn:aws:secretsmanager:us-east-1:413467296690:secret:dockerHubCredentials-sKMVye",
-        Effect = "Allow"
-      }
     ]
   })
 }

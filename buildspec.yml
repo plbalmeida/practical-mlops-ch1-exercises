@@ -7,16 +7,8 @@ env:
 phases:
   pre_build:
     commands:
-      - apt-get install jq
       - echo Logging in to Amazon ECR...
-      - echo Retrieving Docker Hub credentials from AWS Secrets Manager
-      - DOCKERHUB_LOGIN=$(aws secretsmanager get-secret-value --secret-id dockerHubCredentials --query 'SecretString' --output text)
-      - export DOCKERHUB_USERNAME=$(echo $DOCKERHUB_LOGIN | jq -r '.username')
-      - export DOCKERHUB_PASSWORD=$(echo $DOCKERHUB_LOGIN | jq -r '.password')
-      - echo Logging in to Docker Hub...
-      - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
       - export AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query "Account" --output text)
-      - echo Logging in to Amazon ECR...
       - echo AWS_DEFAULT_REGION = $AWS_DEFAULT_REGION
       - echo AWS_ACCOUNT_ID = $AWS_ACCOUNT_ID
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
