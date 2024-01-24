@@ -46,21 +46,7 @@ resource "aws_iam_role_policy" "codebuild_policy" {
       },
       {
         Action = [
-          "ecr:GetAuthorizationToken",
-          "ecr:BatchCheckLayerAvailability",
-          "ecr:PutImage",
-          "ecr:GetDownloadUrlForLayer",
-          "ecr:BatchGetImage",
-          "ecr:InitiateLayerUpload",
-          "ecr:UploadLayerPart",
-          "ecr:CompleteLayerUpload",
-          "ecr:DescribeRepositories",
-          "ecr:GetRepositoryPolicy",
-          "ecr:ListImages",
-          "ecr:DeleteRepository",
-          "ecr:BatchDeleteImage",
-          "ecr:SetRepositoryPolicy",
-          "ecr:DeleteRepositoryPolicy"
+          "ecr:*",
         ],
         Resource = "*",
         Effect = "Allow"
