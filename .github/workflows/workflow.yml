@@ -1,7 +1,10 @@
 name: CI/CD Workflow
 
 on: 
-  push
+  push:
+    branches:
+      - main
+      - destroy-infra
 
 jobs:
 
@@ -78,8 +81,13 @@ jobs:
         aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
         aws-region: us-east-1 
       
-    - name: Terraform Apply
-      run: terraform apply -auto-approve
+    - name: Terraform Apply or Destroy
+      run: |
+        if [ "${{ github.ref }}" = "refs/heads/destroy-infra" ]; then
+          terraform destroy -auto-approve
+        else
+          terraform apply -auto-approve
+        fi
       working-directory: ./infra
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
