@@ -77,3 +77,12 @@ resource "aws_codebuild_project" "practical_mlops_ch1_exercises" {
 
   service_role = aws_iam_role.codebuild_role.arn
 }
+
+resource "aws_ecr_repository" "my_repository" {
+  name                 = "practical-mlops-ch1-exercises"
+  image_tag_mutability = "MUTABLE"
+
+  image_scanning_configuration {
+    scan_on_push = true
+  }
+}
