@@ -5,36 +5,22 @@ on:
 
 jobs:
 
-  Infra:
+  Build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
-
-    - name: Terraform Init
-      run: terraform init
-      working-directory: ./infra
-
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
+    
+    - name: Set up Python
+      uses: actions/setup-python@v2
       with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
-        aws-region: us-east-1 
-      
-    - name: Terraform Apply
-      run: terraform apply -auto-approve
-      working-directory: ./infra
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        AWS_DEFAULT_REGION: us-east-1
-
-  Build:
-    needs: Infra
+        python-version: '3.8'
+    
+    - name: Install dependencies
+      run: |
+        make install
+          
+  Test:
+    needs: Build
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -70,6 +56,34 @@ jobs:
     - name: Load Test
       run: |
         make load-test
+  
+  Infra:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+
+    - name: Terraform Init
+      run: terraform init
+      working-directory: ./infra
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+        aws-region: us-east-1 
+      
+    - name: Terraform Apply
+      run: terraform apply -auto-approve
+      working-directory: ./infra
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_DEFAULT_REGION: us-east-1
 
   CodeBuild:
     needs: Build
@@ -87,4 +101,4 @@ jobs:
   
     - name: Start AWS CodeBuild
       run: |
-        aws codebuild start-build --project-name practical-mlops-ch1-exercises
+        make codebuild

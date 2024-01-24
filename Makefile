@@ -13,3 +13,6 @@ test:
 
 load-test:
 	locust -f locustfile.py --headless --users 10 --spawn-rate 1 --run-time 60s --host http://localhost:5000
+
+codebuild:
+	aws codebuild start-build --project-name practical-mlops-ch1-exercises
