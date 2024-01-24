@@ -66,7 +66,7 @@ resource "aws_codebuild_project" "practical_mlops_ch1_exercises" {
 
   source {
     type            = "GITHUB"
-    location        = "https://github.com/your_username/your_repo.git"
+    location        = "https://github.com/plbalmeida/practical-mlops-ch1-exercises"
     git_clone_depth = 1
   }
 
