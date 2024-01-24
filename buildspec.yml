@@ -1,14 +1,13 @@
 version: 0.2
 
-env:
-  variables:
-    AWS_DEFAULT_REGION: "us-east-1"
-    AWS_ACCOUNT_ID: "413467296690"
-
 phases:
   pre_build:
     commands:
+      - export AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query "Account" --output text)
+      - export AWS_DEFAULT_REGION=$(curl -s http://169.254.169.254/latest/meta-data/placement/region)
       - echo Logging in to Amazon ECR...
+      - echo AWS_DEFAULT_REGION = $AWS_DEFAULT_REGION
+      - echo AWS_ACCOUNT_ID = $AWS_ACCOUNT_ID
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
   build:
     commands:
