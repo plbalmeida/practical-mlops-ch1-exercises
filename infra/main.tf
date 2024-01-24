@@ -41,9 +41,30 @@ resource "aws_iam_role_policy" "codebuild_policy" {
           "s3:GetObjectVersion",
           "s3:PutObject"
         ],
-        Resource = "arn:aws:s3:::nome-do-seu-bucket/*",
+        Resource = "*",
         Effect = "Allow"
       },
+      {
+        Action = [
+          "ecr:GetAuthorizationToken",
+          "ecr:BatchCheckLayerAvailability",
+          "ecr:PutImage",
+          "ecr:GetDownloadUrlForLayer",
+          "ecr:BatchGetImage",
+          "ecr:InitiateLayerUpload",
+          "ecr:UploadLayerPart",
+          "ecr:CompleteLayerUpload",
+          "ecr:DescribeRepositories",
+          "ecr:GetRepositoryPolicy",
+          "ecr:ListImages",
+          "ecr:DeleteRepository",
+          "ecr:BatchDeleteImage",
+          "ecr:SetRepositoryPolicy",
+          "ecr:DeleteRepositoryPolicy"
+        ],
+        Resource = "*",
+        Effect = "Allow"
+      }
     ]
   })
 }
