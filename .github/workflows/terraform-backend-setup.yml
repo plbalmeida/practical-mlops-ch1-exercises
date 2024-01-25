@@ -21,7 +21,7 @@ jobs:
     
     - name: Terraform Init and Apply for S3
       run: |
-        cd infra/terraform-setup-backend/s3
+        cd infra/terraform-backend-setup/s3
         terraform init
         terraform apply -auto-approve
 
@@ -39,7 +39,7 @@ jobs:
 
     - name: Terraform Init and Apply for Dynamo DB
       run: |
-        cd infra/terraform-setup-backend/dynamodb
+        cd infra/terraform-backend-setup/dynamodb
         terraform init
         terraform apply -auto-approve
 
@@ -58,6 +58,6 @@ jobs:
 
     - name: Terraform Init and Apply for IAM Role
       run: |
-        cd infra/terraform-setup-backend/iam_role
+        cd infra/terraform-backend-setup/iam_role
         terraform init
         terraform apply -auto-approve
