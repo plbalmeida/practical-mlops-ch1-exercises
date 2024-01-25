@@ -3,7 +3,7 @@ name: 'Setup Terraform Backend'
 on: 
   push:
     branches:
-      - terraform-setup-backend
+      - terraform-backend-setup
 
 jobs:
 
