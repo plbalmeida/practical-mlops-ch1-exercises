@@ -7,7 +7,7 @@ on:
 
 jobs:
 
-  Build:
+  build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -21,8 +21,8 @@ jobs:
       run: |
         make install
           
-  Test:
-    needs: Build
+  test:
+    needs: build
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -59,8 +59,8 @@ jobs:
       run: |
         make load-test
   
-  Infra:
-    needs: Test
+  infra:
+    needs: test
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -78,14 +78,14 @@ jobs:
 
     - name: Terraform Init
       run: terraform init
-      working-directory: ./infra
+      working-directory: ./infra/main-infrastructure
       
     - name: Terraform Apply
       run: terraform apply -auto-approve
-      working-directory: ./infra
+      working-directory: ./infra/main-infrastructure
 
-  CodeBuild:
-    needs: Infra
+  codebuild:
+    needs: infra
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
