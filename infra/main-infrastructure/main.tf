@@ -81,6 +81,7 @@ resource "aws_codebuild_project" "practical_mlops_ch1_exercises" {
 resource "aws_ecr_repository" "my_repository" {
   name                 = "practical-mlops-ch1-exercises"
   image_tag_mutability = "MUTABLE"
+  force_delete         = true
 
   image_scanning_configuration {
     scan_on_push = true
