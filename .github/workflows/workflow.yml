@@ -83,8 +83,15 @@ jobs:
       run: terraform init
       working-directory: ./infra/main-infrastructure
       
-    - name: Terraform Apply
-      run: terraform apply -auto-approve
+    - name: Conditional Terraform Apply or Destroy
+      run: |
+        if [ "${{ github.ref }}" == "refs/heads/destroy-infra" ]; then
+          echo "Destroying infrastructure..."
+          terraform destroy -auto-approve
+        else
+          echo "Applying infrastructure..."
+          terraform apply -auto-approve
+        fi
       working-directory: ./infra/main-infrastructure
 
   codebuild:
