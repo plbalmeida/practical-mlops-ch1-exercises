@@ -43,7 +43,7 @@ resource "aws_iam_policy" "policy" {
           "dynamodb:DeleteItem"
         ],
         Resource: [
-          "arn:aws:dynamodb:${region}:${account_id}:table/terraform-backend-lock-table-${var.project_name}"
+          "arn:aws:dynamodb:${var.region}:${var.account_id}:table/terraform-backend-lock-table-${var.project_name}"
         ]
       }
     ]
