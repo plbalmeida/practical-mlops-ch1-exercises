@@ -22,11 +22,11 @@ def test_index_post(client):
 
 def test_index_post_invalid_data(client):
     response = client.post('/', json={'a': 1, 'b': 2})
-    assert response.status_code == 200
+    assert response.status_code == 400
     assert response.json['result'] is None
 
 
 def test_index_post_missing_data(client):
     response = client.post('/', json={'x': 1})
-    assert response.status_code == 200
+    assert response.status_code == 400
     assert response.json['result'] is None
