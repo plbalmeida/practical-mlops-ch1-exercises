@@ -7,7 +7,7 @@ on:
 
 jobs:
 
-  Build:
+  build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -21,8 +21,8 @@ jobs:
       run: |
         make install
           
-  Test:
-    needs: Build
+  test:
+    needs: build
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -59,8 +59,8 @@ jobs:
       run: |
         make load-test
   
-  Infra:
-    needs: Test
+  infra:
+    needs: test
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -70,7 +70,6 @@ jobs:
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
         aws-region: us-east-1
 
     - name: Setup Terraform
@@ -78,14 +77,14 @@ jobs:
 
     - name: Terraform Init
       run: terraform init
-      working-directory: ./infra
+      working-directory: ./infra/main-infrastructure
       
     - name: Terraform Apply
       run: terraform apply -auto-approve
-      working-directory: ./infra
+      working-directory: ./infra/main-infrastructure
 
-  CodeBuild:
-    needs: Infra
+  codebuild:
+    needs: infra
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -95,7 +94,6 @@ jobs:
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
         aws-region: us-east-1    
   
     - name: Start AWS CodeBuild
