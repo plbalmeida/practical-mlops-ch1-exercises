@@ -69,6 +69,12 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Download Terraform State
+      uses: actions/download-artifact@v2
+      with:
+        name: terraform-state
+        path: ./infra
+
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
 
