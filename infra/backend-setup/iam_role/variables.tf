@@ -4,12 +4,6 @@ variable "account_id" {
   default     = "413467296690"
 }
 
-variable "group_name" {
-  description = "IAM group name"
-  type        = string
-  default     = "admin"
-}
-
 variable "project_name" {
   description = "Project name"
   type        = string
