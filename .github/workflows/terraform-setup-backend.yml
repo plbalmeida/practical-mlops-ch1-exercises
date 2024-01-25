@@ -3,7 +3,7 @@ name: 'Setup Terraform Backend'
 on: 
   push:
     branches:
-      - setup-backend
+      - terraform-setup-backend
 
 jobs:
 
@@ -21,7 +21,7 @@ jobs:
     
     - name: Terraform Init and Apply for S3
       run: |
-        cd infra/backend-setup/s3
+        cd infra/terraform-setup-backend/s3
         terraform init
         terraform apply -auto-approve
 
@@ -39,7 +39,7 @@ jobs:
 
     - name: Terraform Init and Apply for Dynamo DB
       run: |
-        cd infra/backend-setup/dynamodb
+        cd infra/terraform-setup-backend/dynamodb
         terraform init
         terraform apply -auto-approve
 
@@ -58,6 +58,6 @@ jobs:
 
     - name: Terraform Init and Apply for IAM Role
       run: |
-        cd infra/backend-setup/iam_role
+        cd infra/terraform-setup-backend/iam_role
         terraform init
         terraform apply -auto-approve
