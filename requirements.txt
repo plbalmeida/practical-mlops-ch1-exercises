@@ -4,4 +4,3 @@ jsonify
 locust
 pylint
 pytest
-request
