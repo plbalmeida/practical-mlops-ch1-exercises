@@ -1,5 +1,5 @@
 resource "aws_iam_role" "role" {
-  name = "${var.project_name}-TerraformBackendRole"
+  name = "${var.project_name}-terraform-backend-role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -16,7 +16,7 @@ resource "aws_iam_role" "role" {
 }
 
 resource "aws_iam_policy" "policy" {
-  name        = "${var.project_name}-TerraformBackendAccessPolicy"
+  name        = "${var.project_name}-terraform-backend-access-policy"
   description = "Policy that grants full access to accounts-terraform-backend S3 bucket"
 
   policy = jsonencode({
