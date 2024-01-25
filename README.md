@@ -45,7 +45,9 @@ Cloud platforms are ideal for analytics applications due to:
 2. **Cost-Effectiveness**: They offer a pay-as-you-go model, reducing upfront investment.
 3. **High Availability**: Cloud platforms provide robust and reliable infrastructure.
 4. **Diverse Toolsets**: They offer a wide range of analytics and machine learning tools.
+
 Data Engineering and DataOps play a crucial role:
+
 1. **Data Preparation**: They help in cleaning, transforming, and structuring data for analysis.
 2. **Pipeline Development**: Building robust data pipelines for efficient data flow.
 3. **Automation**: Automating data workflows to ensure timely data availability.
@@ -58,7 +60,9 @@ Deep learning benefits significantly from cloud computing:
 1. **Resource Intensive**: Deep learning requires substantial computational resources, which cloud platforms readily provide.
 2. **Flexibility**: The cloud offers flexibility to choose different types and amounts of resources as needed.
 3. **Access to Advanced Tools**: Cloud platforms provide access to the latest deep learning frameworks and tools.
+
 Deep learning without cloud computing:
+
 1. **Feasible but Challenging**: It's possible but may require significant investment in hardware and infrastructure.
 2. **Limited Scalability**: Scaling up resources without the cloud can be difficult and expensive.
 
