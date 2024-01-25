@@ -4,12 +4,10 @@ on:
   push:
     branches:
       - main
-      - destroy-infra
 
 jobs:
 
   Build:
-    if: github.ref != 'refs/heads/destroy-infra'
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -25,7 +23,6 @@ jobs:
           
   Test:
     needs: Build
-    if: github.ref != 'refs/heads/destroy-infra'
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -64,23 +61,9 @@ jobs:
   
   Infra:
     needs: Test
-    if: always()
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-
-    - name: Check if terraform-state exists
-      id: check-artifact
-      uses: actions/github-script@v3
-      with:
-        script: |
-          const artifacts = await github.actions.listWorkflowRunArtifacts({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            run_id: context.runId
-          });
-          const artifactExists = artifacts.data.artifacts.some(artifact => artifact.name === 'terraform-state');
-          core.setOutput('exists', artifactExists);
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
@@ -88,37 +71,17 @@ jobs:
     - name: Terraform Init
       run: terraform init
       working-directory: ./infra
-
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
-        aws-region: us-east-1 
       
-    - name: Terraform Apply or Destroy
-      run: |
-        if [ "${{ github.ref }}" = "refs/heads/destroy-infra" ]; then
-          terraform destroy -auto-approve
-        else
-          terraform apply -auto-approve
-        fi
+    - name: Terraform Apply
+      run: terraform apply -auto-approve
       working-directory: ./infra
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         AWS_DEFAULT_REGION: us-east-1
-    
-    - name: Download Terraform State
-      uses: actions/download-artifact@v2
-      with:
-        name: terraform-state
-        path: ./infra
 
   CodeBuild:
     needs: Infra
-    if: github.ref != 'refs/heads/destroy-infra'
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
