@@ -12,7 +12,7 @@
 
 ### Critical Thinking Discussion Questions
 
-> What problems does a continuous integration (CI) system solve?
+> **What problems does a continuous integration (CI) system solve?**
 
 A Continuous Integration (CI) system solves several problems:
 
@@ -22,7 +22,7 @@ A Continuous Integration (CI) system solves several problems:
 4. **Faster Release Cycles**: With automated testing and early bug detection, CI enables faster and more reliable release cycles.
 5. **Increased Visibility and Communication**: Continuous integration fosters better communication among team members and increases visibility into the development process.
 
-> Why is a CI system an essential part of both a SaaS software product and an ML system?
+> **Why is a CI system an essential part of both a SaaS software product and an ML system?**
 
 CI systems are crucial for both SaaS software products and ML systems because:
 
@@ -32,7 +32,7 @@ CI systems are crucial for both SaaS software products and ML systems because:
 4. **Scalability**: CI supports scalability by automating the build and deployment processes, a key requirement for SaaS and ML systems.
 5. **Compliance and Security**: Regular integration and testing can help in adhering to compliance standards and maintaining security, especially important in SaaS and ML applications.
 
-> Why are cloud platforms the ideal target for analytics applications? How do data engineering and DataOps assist in building cloud-based analytics applications?
+> **Why are cloud platforms the ideal target for analytics applications? How do data engineering and DataOps assist in building cloud-based analytics applications?**
 
 Cloud platforms are ideal for analytics applications due to:
 
@@ -48,7 +48,7 @@ Data Engineering and DataOps play a crucial role:
 3. **Automation**: Automating data workflows to ensure timely data availability.
 4. **Performance Optimization**: They optimize data storage and processing for cost and efficiency.
 
-> How does deep learning benefit from the cloud? Is deep learning feasible without cloud computing?
+> **How does deep learning benefit from the cloud? Is deep learning feasible without cloud computing?**
 
 Deep learning benefits significantly from cloud computing:
 
@@ -61,7 +61,7 @@ Deep learning without cloud computing:
 1. **Feasible but Challenging**: It's possible but may require significant investment in hardware and infrastructure.
 2. **Limited Scalability**: Scaling up resources without the cloud can be difficult and expensive.
 
-> Explain what MLOps is and how it can enhance a machine learning engineering project.
+> **Explain what MLOps is and how it can enhance a machine learning engineering project.**
 
 MLOps, or Machine Learning Operations, refers to:
 1. **Best Practices**: Incorporating best practices in software development into the machine learning lifecycle.
