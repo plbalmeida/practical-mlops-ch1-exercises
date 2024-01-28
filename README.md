@@ -4,6 +4,13 @@
 
 This repository contains **Chapter 1** exercises files and resources for the **Practical MLOps** book. These exercises provide practical examples of MLOps concepts.
 
+What was done:
+
+* The application was developed in **Python**.
+* The **Makefile** was used to build, unit test the application and load test the API created using **Locust**.  
+* The **Makefile** was used in a **CI/CD pipeline** using **GitHub Actions**, further in the pipeline the application was containerized using **Docker** and registered in the **AWS ECR** using **AWS CodeBuild**.
+* The **AWS** resources infrastructure required for this exercise was provisioned with **Terraform**.
+
 <p align="center">
   <img src="https://learning.oreilly.com/library/cover/9781098103002/250w/" alt="Descrição da imagem">
 </p>
