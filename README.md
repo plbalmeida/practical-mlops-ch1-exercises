@@ -7,7 +7,7 @@ This repository contains **Chapter 1** exercises files and resources for the **P
 What was done:
 
 * The application was developed in **Python** (no ML yet, the main idea was to build something simple to practice basic MLOps project scaffolding repository).
-* The **Makefile** was used to build, unit test the application and load test the API created using **Locust**.  
+* The **Makefile** was used to define steps related to build, unit test and API load test through **Locust**.  
 * The **Makefile** was used in a **CI/CD pipeline** using **GitHub Actions**, further in the pipeline the application was containerized using **Docker** and registered in the **AWS ECR** using **AWS CodeBuild**.
 * The **AWS** resources infrastructure required for this exercise was provisioned with **Terraform**.
 
